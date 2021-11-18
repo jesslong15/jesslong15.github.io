@@ -125,8 +125,8 @@
            name.innerHTML = props.name;
            container.appendChild(L.DomUtil.create('br', null, container));
 
-           var cat = props.name ?
-               info = cat
+            var cat = props.name ? props.FNAME : props.OCCUPATION,
+               info = cat;
            container.appendChild(document.createTextNode(info));
          }
        };
