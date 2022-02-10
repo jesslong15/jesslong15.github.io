@@ -31,9 +31,13 @@
 
     <script>
           function getColorFor(value) {
-                return value >= 1 ? '#2166ac':
-                       value >= 0  ? '#ffffbf':
-                                     '#b2182b';
+                return value >= 5 ? '#4575b4':
+                       value >= 3  ? '#91bfdb':
+                       value >= 1  ? '#e0f3f8':
+                        value >= 0  ? '#ffffbf':
+                         value >= -1 ? '#fee090':
+                          value >= -3 ? '#fc8d59':
+                                     '#d73027';
             }
 
       var background = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
