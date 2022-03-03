@@ -88,8 +88,8 @@ madtract_json.selectAll( "path" )
   d3.select("h2").text("");
   d3.select(this).attr("class","tractdata");
 
-  var madroad = svg.append( "g" );
- madroad.selectAll( "path" )
+  var madroads = svg.append( "g" );
+ madroads.selectAll( "path" )
  .data( madroad.features )
  .enter().append( "path" )
  .attr( "fill", "#ccc" )
