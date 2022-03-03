@@ -29,8 +29,9 @@ body {
         </style>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://jesslong15.github.io/lab5/madisoncotract.js"></script>
-
+<script src="https://jesslong15.github.io/lab5/madroad.js"></script>
 </head>
+
 
 <body>
   <h1>Madison County Census</h1> <h2></h2>
@@ -68,8 +69,6 @@ var albersProjection = d3.geoAlbers()
 var geoPath = d3.geoPath()
 .projection ( albersProjection );
 
-//select element; bind data; append attributes; apply
-
 var madtract_json = svg.append( "g" );
 madtract_json.selectAll( "path" )
 .data( madtract.features )
@@ -88,7 +87,15 @@ madtract_json.selectAll( "path" )
 .on("mouseout", function(d){
   d3.select("h2").text("");
   d3.select(this).attr("class","tractdata");
- });
+
+  var madroad = svg.append( "g" );
+ madroad.selectAll( "path" )
+ .data( madroad.features )
+ .enter().append( "path" )
+ .attr( "fill", "#ccc" )
+ .attr( "stroke", "#333")
+ .attr( "d", geoPath ); });
+
 </script>
 </body>
 </html>
