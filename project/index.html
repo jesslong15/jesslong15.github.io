@@ -6,44 +6,176 @@
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
-    <script src="https://jesslong15.github.io/project/countybuld.geojson"></script>
+    <script src="https://jesslong15.github.io/project/countybuld.js "></script>
+    <script src="https://jesslong15.github.io/project/comerical.js"></script>
+    <script src="https://jesslong15.github.io/project/dwellings.js"></script>
+    <script src="https://jesslong15.github.io/project/stables.js "></script>
+    <script src="https://jesslong15.github.io/project/vacant.js "></script>
+    <script src="https://jesslong15.github.io/project/warehouse.js "></script>
   <style>
     #map{ height: 100% }
   </style>
 </head>
 <body>
+    <div id="map"></div>
 
-  <div id="map"></div>
+    <script type="text/javascript">
 
-  <script>
+      var map = L.map('map', {
+          center: [44.37042, -103.72989],
+          zoom: 15
+      });
 
-  // initialize the map
-  var basemap =  L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
-                   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                   subdomains: 'abcd',
-                   minZoom: 0,
-                   maxZoom: 20,
-                   ext: 'png'
-               });
 
-     var map = L.map('map', {
-   center: [44.37042, -103.72989],
-   zoom: 15,
-   layers: [basemap]
-   });
+var mountain = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
+attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+subdomains: 'abcd',
+minZoom: 0,
+maxZoom: 18,
+ext: 'png'
+});
+var tones = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+subdomains: 'abcd',
+minZoom: 0,
+maxZoom: 20,
+ext: 'png'
+}).addTo(map);
+function getColor(value) {        }
 
-   $.getJSON("https://jesslong15.github.io/project/countybuld.geojson",function(data){
-    var ratIcon = L.icon({
-      iconUrl: "http://maptimeboston.github.io/leaflet-intro/rat.gif",
-      iconSize: [50,40]
-    });
-    L.geoJson(data,{
-      pointToLayer: function(feature,latlng){
-	    return L.marker(latlng,{icon: ratIcon});
+function style(feature){
+            return {
+                fillColor: getColor(feature.properties.POP10),
+                weight: 2,
+                opacity: .7,
+                color: 'red',
+                fillOpacity: .7
+            };
+        }
+
+var countybuld = new L.geoJson(countybuld, {style:style}).addTo(map);
+
+
+var onEachFeature = function(feature, layer) {
+    if (feature.properties) {
+      var prop = feature.properties;
+
+var popup = '<h3>'+prop['TypeofBis'];
+      feature.layer = layer;
+      layer.bindPopup(popup, {maxWidth: "auto"});
+    }
+  };
+
+  var combld = new L.geoJson(combld, {
+  onEachFeature : onEachFeature,
+  pointToLayer: function(feature, ll){
+    return {
+        fillColor: getColor(feature.properties.POP10),
+        weight: 2,
+        opacity: 1,
+        color: 'red',
+        fillOpacity: 1
+    };
+  }
+  }).addTo(map);
+
+  var dwellings = new L.geoJson(dwellings, {
+  onEachFeature : onEachFeature,
+  pointToLayer: function(feature, ll){
+    return {
+        fillColor: getColor(feature.properties.POP10),
+        weight: 2,
+        opacity: 1,
+        color: 'yellow',
+        fillOpacity: 1
+    };
+  }
+  }).addTo(map);
+
+
+  var stables = new L.geoJson(stables, {
+  onEachFeature : onEachFeature,
+  pointToLayer: function(feature, ll){
+    return {
+        fillColor: getColor(feature.properties.POP10),
+        weight: 2,
+        opacity: 1,
+        color: 'yellow',
+        fillOpacity: 1
+    };
+  }
+  }).addTo(map);
+
+  var vacant = new L.geoJson(vacant, {
+  onEachFeature : onEachFeature,
+  pointToLayer: function(feature, ll){
+    return {
+        fillColor: getColor(feature.properties.POP10),
+        weight: 2,
+        opacity: 1,
+        color: 'yellow',
+        fillOpacity: 1
+    };
+  }
+  }).addTo(map);
+
+  var warehouse = new L.geoJson(warehouse, {
+  onEachFeature : onEachFeature,
+  pointToLayer: function(feature, ll){
+    return {
+        fillColor: getColor(feature.properties.POP10),
+        weight: 2,
+        opacity: 1,
+        color: 'yellow',
+        fillOpacity: 1
+    };
+  }
+  }).addTo(map);
+var basemaps = {
+"Light Canvas": tones,
+"Satellite Imagery": mountain
+};
+
+var overlaymaps = {
+"County Buldings ": countybuld
+};
+L.control.layers(basemaps, overlaymaps, {collapsed:false}).addTo(map);
+var legend = L.control({position: 'bottomright'}); // Try the other lower corner if you prefer.
+
+legend.onAdd = function (map) {
+
+  var div = L.DomUtil.create('div', 'legend'),
+  labels = ['<strong>Categories</strong>'],
+  categories = ['County Buildings','Comerical','Dwellings','Stables','Vacant','Other'];
+
+  for (var i = 0; i < categories.length; i++) {
+
+          div.innerHTML +=
+          labels.push(
+              '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+          (categories[i] ? categories[i] : '+'));
+
       }
-    }).addTo(map);
-  });
+      div.innerHTML = labels.join('<br>');
+  return div;
+  };
+  legend.addTo(map);
 
-  </script>
+// Removing the legend when the layer is removed
+        map.on('overlayremove', function(eventLayer){
+          if (eventLayer.name == 'countybuld'){ // We use the key/display name to refer to the layer
+            map.removeControl(legend); // legend is the variable name of the layer legend
+          }
+        });
+
+        // Adding the legend when the layer is added
+        map.on('overlayadd', function(eventLayer){
+          if (eventLayer.name == 'countybuld'){
+            legend.addTo(map);
+          }
+        });
+
+
+    </script>
 </body>
-</html>
+   </html>
