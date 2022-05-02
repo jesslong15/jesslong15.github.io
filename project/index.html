@@ -1,3 +1,5 @@
+
+
 <html>
 <head>
   <title>Deadwood Historic Map</title>
@@ -11,6 +13,7 @@
     <script src="https://jesslong15.github.io/project/dwellings.js"></script>
     <script src="https://jesslong15.github.io/project/stables.js "></script>
     <script src="https://jesslong15.github.io/project/vacant.js "></script>
+    <script src="https://jesslong15.github.io/project/roads.js"></script>
 
   <style>
     #map{height: 100%}
@@ -101,6 +104,13 @@ var popup = '<h3>'+prop['TypeofBis'];
               fillOpacity: 0.7
     }).addTo(map);
 
+    var roads =  new L.geoJson(roads, {
+        fillColor: "black",
+                color: "black",
+                weight: 3,
+                opacity: 1,
+                fillOpacity: 0.7
+      }).addTo(map);
 
 
 var basemaps = {
@@ -151,3 +161,4 @@ legend.onAdd = function (map) {
     </script>
 </body>
    </html>
+
