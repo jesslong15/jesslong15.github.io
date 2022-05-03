@@ -1,5 +1,4 @@
 
-
 <html>
 <head>
   <title>Deadwood Historic Map</title>
@@ -143,22 +142,6 @@ legend.onAdd = function (map) {
   };
   legend.addTo(map);
 
-// Removing the legend when the layer is removed
-        map.on('overlayremove', function(eventLayer){
-          if (eventLayer.name == 'vacant'){ // We use the key/display name to refer to the layer
-            map.removeControl(legend); // legend is the variable name of the layer legend
-          }
-        });
-
-        // Adding the legend when the layer is added
-        map.on('overlayadd', function(eventLayer){
-          if (eventLayer.name == 'vacant'){
-            legend.addTo(map);
-          }
-        });
-
-
     </script>
 </body>
    </html>
-
